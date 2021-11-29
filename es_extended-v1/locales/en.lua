@@ -42,9 +42,11 @@ Locales['en'] = {
 
   -- Salary related
   ['received_salary'] = 'you received your salary: ~g~$%s~s~',
+  ['received_salary2'] = 'you received your second salary: ~g~$%s~s~',
   ['received_help'] = 'you received your welfare check: ~g~$%s~s~',
   ['company_nomoney'] = 'the company you\'re employeed at is too poor to pay out your salary',
   ['received_paycheck'] = 'received paycheck',
+  ['received_paycheck2'] = 'received paycheck (job2)',
   ['bank'] = 'maze Bank',
   ['account_bank'] = 'bank',
   ['account_black_money'] = 'dirty Money',
@@ -90,6 +92,10 @@ Locales['en'] = {
   ['command_setjob_job'] = 'job name',
   ['command_setjob_grade'] = 'job grade',
   ['command_setjob_invalid'] = 'the job, grade or both are invalid',
+  ['command_setjob2'] = 'set job2 for a player',
+  ['command_setjob_job2'] = 'job2 name',
+  ['command_setjob_grade2'] = 'job2 grade2',
+  ['command_setjob_invalid2'] = 'the job2, grade2 or both are invalid',
   ['command_setgroup'] = 'set player group',
   ['command_setgroup_group'] = 'group name',
   ['commanderror_argumentmismatch'] = 'argument count mismatch (passed %s, wanted %s)',
