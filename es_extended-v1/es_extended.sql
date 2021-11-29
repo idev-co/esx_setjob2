@@ -8,6 +8,8 @@ CREATE TABLE `users` (
 	`inventory` LONGTEXT NULL DEFAULT NULL,
 	`job` VARCHAR(20) NULL DEFAULT 'unemployed',
 	`job_grade` INT NULL DEFAULT 0,
+	`job2` VARCHAR(20) NULL DEFAULT 'unemployed2',
+	`job2_grade` INT NULL DEFAULT 0,
 	`loadout` LONGTEXT NULL DEFAULT NULL,
 	`position` VARCHAR(255) NULL DEFAULT '{"x":-269.4,"y":-955.3,"z":31.2,"heading":205.8}',
 
@@ -38,6 +40,7 @@ CREATE TABLE `job_grades` (
 );
 
 INSERT INTO `job_grades` VALUES (1,'unemployed',0,'unemployed','Unemployed',200,'{}','{}');
+INSERT INTO `job_grades` VALUES (2,'unemployed2',0,'unemployed2','Unemployed2',200,'{}','{}');
 
 CREATE TABLE `jobs` (
 	`name` VARCHAR(50) NOT NULL,
@@ -46,4 +49,5 @@ CREATE TABLE `jobs` (
 	PRIMARY KEY (`name`)
 );
 
-INSERT INTO `jobs` VALUES ('unemployed','Unemployed');
+INSERT INTO `jobs` VALUES (1, 'unemployed','Unemployed');
+INSERT INTO `jobs` VALUES (2, 'unemployed2','Unemployed2');
