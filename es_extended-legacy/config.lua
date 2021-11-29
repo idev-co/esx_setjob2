@@ -17,6 +17,7 @@ Config.EnableDebug              = false -- Use Debug options?
 Config.EnableDefaultInventory   = true -- Display the default Inventory ( F2 )
 Config.EnableWantedLevel    	= false -- Use Normal GTA wanted Level?
 Config.EnablePVP                = true -- Allow Player to player combat
-
+Config.PaycheckJob2             = true -- Allow job2 to have a paycheck !
+Config.EnableSocietyPayoutsJob2 = false -- Must have a esx_society who is compatible with job2 !
 Config.Multichar                = false -- Enable support for esx_multicharacter
 Config.Identity                 = true -- Select a characters identity data before they have loaded in (this happens by default with multichar)

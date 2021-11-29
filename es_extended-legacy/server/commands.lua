@@ -18,6 +18,18 @@ end, true, {help = _U('command_setjob'), validate = true, arguments = {
 	{name = 'grade', help = _U('command_setjob_grade'), type = 'number'}
 }})
 
+ESX.RegisterCommand('setjob2', 'admin', function(xPlayer, args, showError)
+	if ESX.DoesJob2Exist(args.job, args.grade) then
+		args.playerId.setJob2(args.job, args.grade)
+	else
+		showError(_U('command_setjob2_invalid'))
+	end
+end, true, {help = _U('command_setjob2'), validate = true, arguments = {
+	{name = 'playerId', help = _U('commandgeneric_playerid'), type = 'player'},
+	{name = 'job', help = _U('command_setjob_job2'), type = 'string'},
+	{name = 'grade', help = _U('command_setjob_grade2'), type = 'number'}
+}})
+
 ESX.RegisterCommand('car', 'admin', function(xPlayer, args, showError)
 	if not args.car then args.car = "baller2" end
 	xPlayer.triggerEvent('esx:spawnVehicle', args.car)
@@ -151,10 +163,15 @@ ESX.RegisterCommand('job', {"user", "admin"}, function(xPlayer, args, showError)
 print(xPlayer.getName()..", You are currently: ^5".. xPlayer.getJob().name.. "^0 - ^5".. xPlayer.getJob().grade_label)
 end, true)
 
+ESX.RegisterCommand('job2', {"user", "admin"}, function(xPlayer, args, showError)
+	print(xPlayer.getName()..", You are currently: ^5".. xPlayer.getJob2().name.. "^0 - ^5".. xPlayer.getJob2().grade_label)
+	end, true)
+
 ESX.RegisterCommand('info', {"user", "admin"}, function(xPlayer, args, showError)
 	local job = xPlayer.getJob().name
 	local jobgrade = xPlayer.getJob().grade_name
-	print("^2ID : ^5"..xPlayer.source.." ^0| ^2Name:^5"..xPlayer.getName().." ^0 | ^2Group:^5"..xPlayer.getGroup().."^0 | ^2Job:^5".. job.."")
+	local job2 = xPlayer.getJob2().name
+	print("^2ID : ^5"..xPlayer.source.." ^0| ^2Name:^5"..xPlayer.getName().." ^0 | ^2Group:^5"..xPlayer.getGroup().."^0 | ^2Job:^5".. job.."^2Job:^5" .. job2 .. "")
 	end, true)
 
 ESX.RegisterCommand('coords', "admin", function(xPlayer, args, showError)

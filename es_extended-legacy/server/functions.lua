@@ -165,7 +165,7 @@ end
 
 local savePlayers = -1
 Citizen.CreateThread(function()
-	savePlayers = MySQL.Sync.store("UPDATE users SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ? WHERE `identifier` = ?")
+	savePlayers = MySQL.Sync.store("UPDATE users SET `accounts` = ?, `job` = ?, `job_grade` = ?, `job2` = ?, `job2_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ? WHERE `identifier` = ?")
 end)
 
 ESX.SavePlayer = function(xPlayer, cb)
@@ -176,6 +176,8 @@ ESX.SavePlayer = function(xPlayer, cb)
 			json.encode(xPlayer.getAccounts(true)),
 			xPlayer.job.name,
 			xPlayer.job.grade,
+			xPlayer.job2.name,
+			xPlayer.job2.grade,
 			xPlayer.getGroup(),
 			json.encode(xPlayer.getCoords()),
 			json.encode(xPlayer.getInventory(true)),
@@ -200,7 +202,7 @@ ESX.SavePlayers = function(cb)
 	if #xPlayers > 0 then
 		local time = os.time()
 
-		local selectListWithNames = "SELECT '%s' AS identifier, '%s' AS new_accounts, '%s' AS new_job, %s AS new_job_grade, '%s' AS new_group, '%s' AS new_loadout, '%s' AS new_position, '%s' AS new_inventory "
+		local selectListWithNames = "SELECT '%s' AS identifier, '%s' AS new_accounts, '%s' AS new_job, %s AS new_job_grade, '%s' as new_job2, '%s' as new_job2_grade, '%s' AS new_group, '%s' AS new_loadout, '%s' AS new_position, '%s' AS new_inventory "
 		local selectListNoNames = "SELECT '%s', '%s', '%s' , %s, '%s', '%s', '%s', '%s' "
 
 		local updateCommand = 'UPDATE users u JOIN ('
@@ -219,6 +221,8 @@ ESX.SavePlayers = function(cb)
 				json.encode(xPlayer.getAccounts(true)),
 				xPlayer.job.name,
 				xPlayer.job.grade,
+				xPlayer.job2.name,
+				xPlayer.job2.grade,
 				xPlayer.getGroup(),
 				json.encode(xPlayer.getLoadout(true)),
 				json.encode(xPlayer.getCoords()),
@@ -228,7 +232,7 @@ ESX.SavePlayers = function(cb)
 			first = false
 		end
 
-		updateCommand = updateCommand .. ' ) vals ON u.identifier = vals.identifier SET accounts = new_accounts, job = new_job, job_grade = new_job_grade, `group` = new_group, loadout = new_loadout, `position` = new_position, inventory = new_inventory'
+		updateCommand = updateCommand .. ' ) vals ON u.identifier = vals.identifier SET accounts = new_accounts, job = new_job, job_grade = new_job_grade, job = new_job2, job2_grade = new_job2_grade, `group` = new_group, loadout = new_loadout, `position` = new_position, inventory = new_inventory'
 
 		MySQL.Async.fetchAll(updateCommand, {},
 		function(result)
@@ -253,7 +257,7 @@ ESX.GetExtendedPlayers = function(key, val)
 	local xPlayers = {}
 	for k, v in pairs(ESX.Players) do
 		if key then
-			if (key == 'job' and v.job.name == val) or v[key] == val then
+			if ((key == 'job' and v.job.name == val) or (key == 'job2' and v.job2.name == val)) or v[key] == val then
 				table.insert(xPlayers, v)
 			end
 		else
@@ -323,6 +327,18 @@ ESX.DoesJobExist = function(job, grade)
 
 	if job and grade then
 		if ESX.Jobs[job] and ESX.Jobs[job].grades[grade] then
+			return true
+		end
+	end
+
+	return false
+end
+
+ESX.DoesJob2Exist = function(job2, grade2)
+	grade2 = tostring(grade2)
+
+	if job2 and grade2 then
+		if ESX.Jobs[job2] and ESX.Jobs[job2].grades[grade2] then
 			return true
 		end
 	end
